@@ -1,9 +1,13 @@
+using budgeting_application.DataAccessLayer.Repository;
+using budgeting_application.DataAccessLayer.Setting;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.Configure<ConnectionSetting>(builder.Configuration.GetSection("ConnectionSetting"));
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
