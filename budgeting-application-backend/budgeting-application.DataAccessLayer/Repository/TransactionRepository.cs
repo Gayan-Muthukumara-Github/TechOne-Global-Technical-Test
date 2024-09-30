@@ -86,7 +86,7 @@ namespace budgeting_application.DataAccessLayer.Repository
 
             using (var connection = new SqlConnection(_connection.SQLString))
             {
-                var query = @"SELECT TransactionID, Amount, Currency, Category, Date, Type, UserId 
+                var query = @"SELECT TransactionID, Amount, Currency, Category, Date, Type 
                       FROM Transactions 
                       WHERE TransactionID = @TransactionID";
 
@@ -128,7 +128,7 @@ namespace budgeting_application.DataAccessLayer.Repository
                           Category = @Category, 
                           Date = @Date, 
                           Type = @Type 
-                      WHERE TransactionID = @TransactionID AND UserId = @UserId";
+                      WHERE TransactionID = @TransactionID";
 
                 var command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@TransactionID", transaction.TransactionID); 

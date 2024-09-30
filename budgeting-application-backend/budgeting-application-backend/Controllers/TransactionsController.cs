@@ -59,61 +59,59 @@ namespace budgeting_application_backend.Controllers
             }
         }
 
-        //[HttpPut("{id}")]
-        //[Route("UpdateTransaction/{id}")]
-        //public HttpResponseMessage UpdateTransaction(int id, [FromBody] Transaction transaction)
-        //{
-        //    try
-        //    {
-        //        transaction.TransactionID = id;
-        //        _transactionRepository.UpdateTransaction(transaction);
+        [HttpPut("UpdateTransaction/{id}")]
+        public HttpResponseMessage UpdateTransaction(int id, [FromBody] Transaction transaction)
+        {
+            try
+            {
+                transaction.TransactionID = id;
+                _transactionRepository.UpdateTransaction(transaction);
 
-        //        var response = new HttpResponseMessage(HttpStatusCode.NoContent)
-        //        {
-        //            Content = new StringContent("Transaction updated successfully.")
-        //        };
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-        //        {
-        //            Content = new StringContent($"An error occurred: {ex.Message}")
-        //        };
-        //        return response;
-        //    }
-        //}
+                var response = new HttpResponseMessage(HttpStatusCode.NoContent)
+                {
+                    Content = new StringContent("Transaction updated successfully.")
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent($"An error occurred: {ex.Message}")
+                };
+                return response;
+            }
+        }
 
-        //[HttpDelete("{id}")]
-        //[Route("DeleteTransaction/{id}")]
-        //public HttpResponseMessage DeleteTransaction(int id)
-        //{
-        //    try
-        //    {
-        //        _transactionRepository.DeleteTransaction(id);
+        [HttpDelete("DeleteTransaction/{id}")]
+        public HttpResponseMessage DeleteTransaction(int id)
+        {
+            try
+            {
+                _transactionRepository.DeleteTransaction(id);
 
-        //        var response = new HttpResponseMessage(HttpStatusCode.NoContent)
-        //        {
-        //            Content = new StringContent("Transaction deleted successfully.")
-        //        };
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-        //        {
-        //            Content = new StringContent($"An error occurred: {ex.Message}")
-        //        };
-        //        return response;
-        //    }
-        //}
+                var response = new HttpResponseMessage(HttpStatusCode.NoContent)
+                {
+                    Content = new StringContent("Transaction deleted successfully.")
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent($"An error occurred: {ex.Message}")
+                };
+                return response;
+            }
+        }
 
-        [HttpGet("{id}")]
-        [Route("GetTransactionById/{id}")]
+        [HttpGet("GetTransactionById/{id}")]
         public IActionResult GetTransactionById(int id)
         {
             var transaction = _transactionRepository.GetTransactionById(id);
             return Ok(transaction);
         }
+
     }
 }
