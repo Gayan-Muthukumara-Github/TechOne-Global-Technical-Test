@@ -1,0 +1,16 @@
+<div class="container mt-4">
+    <h3>Total Balance</h3>
+    <div *ngIf="totalBalance">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Fiat Balance: {{ totalBalance.totalFiat | currency }}</h5>
+        </div>
+        <div class="col-md-6">
+          <h5>Crypto Balance: {{ totalBalance.totalCrypto | number:'1.2-2' }} BTC</h5>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!totalBalance">
+      <p>Loading balances...</p>
+    </div>
+</div>

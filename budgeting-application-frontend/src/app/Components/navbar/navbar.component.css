@@ -1,0 +1,14 @@
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .dropdown-menu a {
+    cursor: pointer;
+  }
+  

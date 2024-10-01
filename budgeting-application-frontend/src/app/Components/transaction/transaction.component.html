@@ -1,0 +1,130 @@
+<div class="container-fluid">
+    <div class="row p-4 bg-dark text-white mb-3 align-items-center shadow-sm rounded">
+        <div class="col-6">
+            <h3>Transaction List</h3>
+        </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-warning btn-lg" (click)="openModal()"> 
+                <i class="bi bi-plus-lg"></i> Add Transaction
+            </button>
+        </div>
+    </div>
+    @if (transactionList && transactionList.length > 0) { 
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Amount</th>
+                            <th>Currency</th>
+                            <th>Currency Type</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of transactionList; track $index) {
+                        <tr>
+                            <td>{{ item.transactionID }}</td>
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.currency | uppercase }}</td>
+                            <td>{{ item.currencytype }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.date }}</td>
+                            <td>{{ item.type }}</td>
+
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm me-2" (click)="OnEdit(item)">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm" (click)="onDelete(item)">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }@else {
+        <div class="text-center p-5">
+            <h5 class="text-muted">No Transactions Found</h5>
+        </div>
+    }
+
+
+</div>
+
+<div class="modal" id="myModal" #myModal>
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                @if(transactionForm.value.transactionID != 0)
+                {
+                <h4 class="modal-title">Update Transaction</h4>
+                }@else {
+                <h4 class="modal-title">Add Transaction</h4>
+                }
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+            </div>
+            <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label for="amount" class="form-label">Amount</label>
+                            <input type="number" formControlName="amount" name="amount" class="form-control"
+                                placeholder="Enter Amount">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="currency" class="form-label">Currency</label>
+                            <input type="text" formControlName="currency" name="currency" class="form-control"
+                                placeholder="Enter Currency">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="type" class="form-label">Currency Type</label>
+                            <select formControlName="currencytype" name="currencytype" class="form-select">
+                                <option value="" disabled selected>Select Currency Type</option>
+                                <option value="Fiat">Fiat</option>
+                                <option value="Crypto">Crypto</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Category</label>
+                            <input type="text" formControlName="category" name="category" class="form-control"
+                                placeholder="Enter Category">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" formControlName="date" name="date" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="type" class="form-label">Type</label>
+                            <select formControlName="type" name="type" class="form-select">
+                                <option value="" disabled selected>Select Transaction Type</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @if (transactionForm.value.transactionID == 0) {
+                    <button type="submit" [disabled]="this.transactionForm.invalid" class="btn btn-primary"
+                        data-bs-dismiss="modal">Save</button>
+                    }@else {
+                    <button type="submit" [disabled]="this.transactionForm.invalid" class="btn btn-success"
+                        data-bs-dismiss="modal">Update</button>
+                    }
+
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="closeModal()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

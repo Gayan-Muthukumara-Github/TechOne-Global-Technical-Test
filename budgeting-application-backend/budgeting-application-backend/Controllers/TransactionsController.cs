@@ -6,9 +6,8 @@ using System.Net;
 
 namespace budgeting_application_backend.Controllers
 {
-
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class TransactionsController : ControllerBase
     {
         private readonly ITransactionRepository _transactionRepository;
@@ -24,6 +23,22 @@ namespace budgeting_application_backend.Controllers
         {
             var transactions = _transactionRepository.GetAllTransaction();
             return Ok(transactions);
+        }
+
+        [HttpGet]
+        [Route("GetTotalBalance")]
+        public IActionResult GetTotalBalance()
+        {
+            var totalbalance = _transactionRepository.GetTotalBalance();
+            return Ok(totalbalance);
+        }
+
+        [HttpGet]
+        [Route("GetBreakdown")]
+        public IActionResult GetBreakdown()
+        {
+            var Breakdowns = _transactionRepository.GetBreakdown();
+            return Ok(Breakdowns);
         }
 
         [HttpPost]

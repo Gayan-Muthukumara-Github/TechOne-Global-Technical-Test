@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <h3>Breakdown of Spending/Income by Category</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Currency</th>
+          <th>Total Amount</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of breakdownData; track $index) {
+        <tr>
+          <td>{{ item.category }}</td>
+          <td>{{ item.currency }}</td>
+          <td>{{ item.totalAmount}}</td>
+          <td>{{ item.type }}</td>
+        </tr>}
+      </tbody>
+    </table>
+    <div *ngIf="breakdownData.length === 0">
+      <p>No breakdown data available.</p>
+    </div>
+  </div>
+  
